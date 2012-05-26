@@ -10,8 +10,15 @@ This content is released under the MIT License [here](https://github.com/cbumgar
 ## Download Geonames Postal Codes for the US
 [http://download.geonames.org/export/zip/US.zip](http://download.geonames.org/export/zip/US.zip)
 
+## Configuration
+
+I recommend creating a copy of config.js called local.config.js and adding it to your .gitignore so your MongoDB configuration settings do not get persisted in git.
+
 ## Loading Postal Codes into MongoDB from the Command-Line
-todo
+
+Example (be sure to npm install the dependencies listed under "NPM Dependencies" first):
+
+> node test/load-geonames.js --file ~/data/geonames/US/US.txt --config ~/code/node-mongo-postal/local.config.js
 
 ## Querying Postal Codes by Source Zipcode and Radius
 
@@ -21,7 +28,7 @@ todo
 ### Node.js API
 todo
 
-## Dependencies
+## NPM Dependencies
 
 * optimist
 * csv
