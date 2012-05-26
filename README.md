@@ -1,6 +1,6 @@
 # node-mongo-postal
 
-A node.js module that both creates a MongoDB collection of US postal codes and provides geo-spatial searching on them given a source zipcode and radius. Based on the Geonames database [www.geonames.org](www.geonames.org) which is licensed under a Creative Commons Attribution 3.0 License.
+A node.js module that both creates a MongoDB collection of US postal codes and provides geo-spatial searching on them given a source zipcode and radius. Based on the Geonames database [www.geonames.org](http://www.geonames.org) which is licensed under a Creative Commons Attribution 3.0 License.
 
 ## License
 Copyright (c) 2012 Chris Bumgardner and Misha Bosin
