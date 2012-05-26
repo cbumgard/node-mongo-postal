@@ -22,7 +22,9 @@ todo
 todo
 
 ## Dependencies
-todo
+
+* optimist
+* csv
 
 ## NPM Usage
 todo
