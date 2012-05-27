@@ -1,0 +1,38 @@
+// Parse command-line options:
+var argv = require('optimist')
+    .usage('Usage: $0 -c [configFile] -z [zip] -r [radius] -m [max]')
+    .demand(['c'])
+    .alias('c', 'config')
+    .describe('c', 'Absolute path to a Javascript configuration file, e.g. /tmp/local.config.js')
+    .alias('z', 'zip')
+    .describe('z', 'Zipcode to search around')
+    .alias('r', 'radius')
+    .describe('r', 'Radius of the search')
+    .alias('m', 'max')
+    .describe('m', 'Maximum number of results to return')
+    .argv
+  ;
+
+// Initialize a connection to MongoDB:
+var mongoPostal = require('../lib/node-mongo-postal');
+console.log("Using MongoDB settings in configuration file: %s", argv.config);
+var config = require(argv.config);
+var collection = mongoPostal.initDb(config).collection(config.mongo.collection);
+
+var params = {
+  dbCollection : collection,
+  zipcode : argv.zip ? argv.zip : "94102"
+};
+
+mongoPostal.findPostals(params, function(err, postals) {
+  if (err) {
+    console.error("Failed to get postals: %s", err);
+    process.exit(1);
+  } else {
+    postals.forEach(function(postal) {
+      console.log("Found: %s", JSON.stringify(postal));
+    });
+    console.log("Found %s postals", postals.length);
+    process.exit();
+  }
+});
