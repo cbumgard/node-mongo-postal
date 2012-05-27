@@ -16,6 +16,8 @@ I recommend creating a copy of config.js called local.config.js and adding it to
 
 ## Loading Postal Codes into MongoDB from the Command-Line
 
+Saves postal code documents in MongoDB using [geospatial indexes](http://www.mongodb.org/display/DOCS/Geospatial+Indexing).
+
 Example (be sure to npm install the dependencies listed under "NPM Dependencies" first):
 
 > node test/load-geonames.js --file ~/data/geonames/US/US.txt --config ~/code/node-mongo-postal/local.config.js
@@ -30,8 +32,9 @@ todo
 
 ## NPM Dependencies
 
-* optimist
-* csv
+* mongoskin
+* optimist (load-geonames.js only)
+* csv (load-geonames.js only)
 
 ## NPM Usage
 todo
