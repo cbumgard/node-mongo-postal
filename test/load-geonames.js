@@ -10,16 +10,14 @@ var argv = require('optimist')
 ;
 
 // Initialize a connection to MongoDB:
+var mongoPostal = require('../lib/node-mongo-postal');
 console.log("Using MongoDB settings in configuration file: %s", argv.config);
 var config = require(argv.config);
-var mongo = require('mongoskin');
-var authStr = config.mongo.auth ? (config.mongo.auth.name + ':' + config.mongo.auth.pass) + '@' : '';
-var connectStr = config.mongo.host + ':' + config.mongo.port + '/' + config.mongo.dbname;
-var db = mongo.db(authStr + connectStr + '?auto_reconnect=true');
+var dbCollection = mongoPostal.initDb(config).collection(config.mongo.collection);
 
 // Read the contents of the postal codes file and pass to our mongo postal db:
 console.log("Reading postal codes from Geonames file: %s", argv.file);
-var mongoPostal = require('../lib/node-mongo-postal');
+mongoPostal.setUpIndexing(dbCollection);
 var csv = require('csv');
 csv()
 .fromPath(argv.file, {
@@ -46,15 +44,20 @@ csv()
     city : data.place_name,
     state_long : data.admin_name1,
     state_short : data.admin_code1,
-    latitude : data.latitude,
-    longitude : data.longitude
+    // Convert the provided longitude and latitude properties into a mono loc object
+    // (http://www.mongodb.org/display/DOCS/Geospatial+Indexing)
+    loc : [
+      parseFloat(data.longitude),
+      parseFloat(data.latitude)
+    ]
   };  
 })
 .on('data', function(data, index) {
-  mongoPostal.savePostalCode(db, data);
+  mongoPostal.savePostalCode(dbCollection, data);
 })
 .on('end', function(count) {
   console.log('Number of postal codes: '+count);
+  process.exit();
 })
 .on('error', function(error) {
   console.error(error.message);
