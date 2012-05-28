@@ -1,0 +1,34 @@
+{
+  "author": {
+  	"name": "Chris Bumgardner",
+  	"email": "cbumgard@gmail.com"
+	},
+  "contributors": [
+    {
+      "name": "Chris Bumgardner",
+      "email": "cbumgard@gmail.com"
+    },
+    {
+      "name": "Misha Bosin",
+      "email": "misha.bosin@gmail.com"
+    }
+  ],
+  "name": "mongo-postal",
+  "description": "A node.js module that both creates a MongoDB collection of US postal codes and provides geo-spatial searching on them given a source zipcode and radius.",
+  "version": "0.0.1",
+  "homepage": "https://github.com/cbumgard/node-mongo-postal",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:cbumgard/node-mongo-postal.git"
+  },
+  "dependencies": {
+		"mongoskin": "0.3.x",
+		"csv": "0.0.x",
+		"optimist": "0.3.x"
+	},
+  "devDependencies": {},
+  "optionalDependencies": {},
+  "engines": {
+    "node": ">= v0.6.12"
+  }
+}

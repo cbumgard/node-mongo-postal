@@ -10,7 +10,7 @@ var argv = require('optimist')
 ;
 
 // Initialize a connection to MongoDB:
-var mongoPostal = require('../lib/node-mongo-postal');
+var mongoPostal = require('../lib/mongo-postal');
 console.log("Using MongoDB settings in configuration file: %s", argv.config);
 var config = require(argv.config);
 var dbCollection = mongoPostal.initDb(config).collection(config.mongo.collection);
