@@ -3,16 +3,17 @@ var argv = require('optimist')
   .usage('Usage: $0 -f [geonamesFile] -c [configFile]')
   .demand(['f', 'c'])
   .alias('f', 'file')
-  .describe('f', 'Absolute path to a Geonames postal codes file, e.g. /tmp/US.txt')
+  .describe('f', 'Path to a Geonames postal codes file, e.g. /tmp/US.txt')
   .alias('c', 'config')
-  .describe('c', 'Absolute path to a Javascript configuration file, e.g. /tmp/local.config.js')
+  .describe('c', 'Path to a Javascript configuration file, e.g. /tmp/local.config.js')
   .argv
 ;
 
 // Initialize a connection to MongoDB:
 var mongoPostal = require('../lib/mongo-postal');
 console.log("Using MongoDB settings in configuration file: %s", argv.config);
-var config = require(argv.config);
+var fs = require('fs');
+var config = JSON.parse(fs.readFileSync(argv.config, 'utf-8'));
 var dbCollection = mongoPostal.initDb(config).collection(config.mongo.collection);
 
 // Read the contents of the postal codes file and pass to our mongo postal db:
