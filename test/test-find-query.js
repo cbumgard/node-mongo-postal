@@ -8,15 +8,14 @@ var argv = require('optimist')
   .describe('z', 'Zipcode to search around')
   .alias('r', 'radius')
   .describe('r', 'Radius of the search')
-  .alias('m', 'max')
-  .describe('m', 'Maximum number of results to return')
   .argv
 ;
 
 // Initialize a connection to MongoDB:
 var mongoPostal = require('../lib/mongo-postal');
 console.log("Using MongoDB settings in configuration file: %s", argv.config);
-var config = require(argv.config);
+var fs = require('fs');
+var config = JSON.parse(fs.readFileSync(argv.config, 'utf-8'));
 var collection = mongoPostal.initDb(config).collection(config.mongo.collection);
 
 var params = {
@@ -24,7 +23,6 @@ var params = {
   zipcode : argv.zipcode ? argv.zipcode : "94102"
 };
 if (argv.radius) params.radiusMiles = argv.radius;
-if (argv.max) params.maxResults = argv.max;
 
 mongoPostal.findPostals(params, function(err, postals) {
   if (err) {
