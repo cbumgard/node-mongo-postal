@@ -15,7 +15,7 @@
   ],
   "name": "mongo-postal",
   "description": "A node.js module that both creates a MongoDB collection of US postal codes and provides geo-spatial searching on them given a source zipcode and radius.",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "homepage": "https://github.com/cbumgard/node-mongo-postal",
   "repository": {
     "type": "git",
@@ -24,7 +24,8 @@
   "dependencies": {
 		"mongoskin": "0.3.x",
 		"csv": "0.0.x",
-		"optimist": "0.3.x"
+		"optimist": "0.3.x",
+		"step": "0.0.x"
 	},
   "devDependencies": {},
   "optionalDependencies": {},
